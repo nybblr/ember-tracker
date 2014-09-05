@@ -1,0 +1,22 @@
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Witnesses</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+        </table>
+        <script
+            id="entry-listing-template"
+            type="text/x-handlebars-template">
+            <tr id={{ id }}>
+            <td>{{ type }}</td>
+            <td>{{ date }}</td>
+            <td>{{ location }}</td>
+            <td>{{ witnesses }}</td>
+            <td>{{ name }}</td>
+            </tr>
+        </script>
