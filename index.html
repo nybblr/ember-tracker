@@ -1,31 +1,104 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Tracker!</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="css/bootstrap.css">
-    </head>
-    <body>
-        <header class="container">
-            <nav class="navbar">
-                <div class="navbar-inner">
-                    <a class="brand" href="#">Tracker</a>
-                    <ul class="nav">
-                        <li><a href="#list">List Entries</a></li>
-                        <li><a id="save" href="#">Save Entries</a></li>
-                        <li><a id="load" href="#">Load Entries</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <section class="container">
-        </section>
-        <script src="js/jquery-2.0.0.min.js"></script>
-        <script src="js/handlebars.js"></script>
-        <script src="js/models.js"></script>
-        <script src="js/views.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/router.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+  <head>
+    <title>Tracker!</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.css">
+  </head>
+  <body>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
+    <script src="bower_components/ember/ember.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/fixtures.js"></script>
+
+    <script type="text/x-handlebars" data-template-name="application">
+      <header class="container">
+        <nav class="navbar">
+          <div class="navbar-inner">
+            <a class="brand" href="#">Tracker</a>
+            <ul class="nav">
+              <li><a href="#list">List Entries</a></li>
+              <li><a id="save" href="#">Save Entries</a></li>
+              <li><a id="load" href="#">Load Entries</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <section class="container">
+        {{outlet}}
+      </section>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Witnesses</th>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each}}
+            {{render 'sighting/item' this}}
+          {{/each}}
+        </tbody>
+      </table>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="sighting/item">
+      <tr>
+        <td>{{ type }}</td>
+        <td>{{ date }}</td>
+        <td>{{ location }}</td>
+        <td>{{ witnesses }}</td>
+        <td>{{ name }}</td>
+        <td>{{#link-to 'sighting' this}}Edit{{/link-to}}</td>
+      </tr>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="sighting">
+      <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label">Type</label>
+        <div class="controls">
+          {{input value=type name="type" type="text"}}
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Date</label>
+        <div class="controls">
+          {{input value=date name="date" type="date"}}
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Location</label>
+        <div class="controls">
+          {{input value=location name="location" type="text"}}
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Witnesses</label>
+        <div class="controls">
+          {{input value=witnesses name="witnesses" type="number"}}
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Name</label>
+        <div class="controls">
+          {{input value=name name="name" type="text"}}
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          {{#link-to 'index' classNames='btn'}}Submit{{/link-to}}
+        </div>
+      </div>
+      </form>
+    </script>
+  </body>
 </html>
